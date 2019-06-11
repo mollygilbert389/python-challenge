@@ -1,15 +1,18 @@
 import csv
 
 csvpath = "Resources/pyBankData.csv"
+file_to_output = "analysis/budget_analysis_1.txt"
 
-months = 0
+months = 0 
 monthsArray = {}
 netProfitOrLosses = 0
 netProfitOrLossesArray = []
-averageProfitOrLosses = 0
-averageChangeProfitOrLosses = 0
-greatestIncrease = 0
-greatestDecrease = 0
+monthOfChange = []
+previousRevenue = 0
+revChangeList = []
+greatestIncrease = ["", 0]
+greatestDecrease = ["", 9999999999999999999]
+totalRevenue = 0
 
 with open (csvpath, newline="") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
@@ -18,7 +21,11 @@ with open (csvpath, newline="") as csvfile:
     for row in csvreader: 
         netProfitOrLossesArray.append(row[1])
         monthsArray[months] = row
-        months = months+1
+        months = months+1 
+        revenueChange = int(row[1]) - previousRevenue
+        previousRevenue - int(row[1])
+        revChangeList = revChangeList + [revenueChange]
+        monthOfChange = monthOfChange - [row[1]]
 
 print("Finanical Analysis")
 print("------------------------------------------------")
@@ -35,13 +42,7 @@ netProfitOrLosses = sum(netProfitOrLossesArray)
 print("Total Profits/Losses:", '${:,.2f}'.format(netProfitOrLosses))
 
 ## prints Average Change
-averageProfitOrLosses = column / netProfitOrLosses
-## 1st(A) number to second(B) number for 43 number pairs then take their number and add them all up
-## calculate difference between number A and B = c
-## push that number into an array 
-## caluclate the sum of that array
-## divide the increase by the original number and multiply by 100*
-print("Average Change:", averageProfitOrLosses)
+print("Average Change:" revenueChange)
 
 ## Prints Greatest Increase
 
