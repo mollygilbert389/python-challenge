@@ -41,7 +41,7 @@ output = (
     f"------------------------------------------------\n"
     f"Total Months:  {months}\n"
     f"Total Revenue: ${netProfitOrLosses}\n"
-    f"Average Revenue Change: ${revAverage}\n"
+    f"Average Revenue Change: ${revAverage:.2f}\n"
     f"Greatest Increase in Revenue: {greatestIncrease[0]} (${greatestIncrease[1]})\n"
     f"Greatest Decrease in Revenue: {greatestDecrease[0]} (${greatestDecrease[1]})\n"
 )
