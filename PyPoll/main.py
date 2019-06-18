@@ -65,3 +65,6 @@ output = (
 )
 
 print(output)
+
+with open(file_to_output, "w") as txt_file: 
+    txt_file.write(output)
