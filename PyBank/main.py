@@ -1,4 +1,5 @@
 import csv
+import os
 
 csvpath = "Resources/pyBankData.csv"
 file_to_output = "analysis/budget_analysis_1.txt"
@@ -6,32 +7,34 @@ file_to_output = "analysis/budget_analysis_1.txt"
 months = 0 
 netProfitOrLosses = 0
 monthOfChange = []
-previousRevenue = 0
 revChangeList = []
-revChange = 0
-revAverage = 0
 greatestIncrease = ["", 0]
 greatestDecrease = ["", 9999999999999999999]
-totalRevenue = 0
+
 
 with open (csvpath) as revenuData:
-    reader = csv.DictReader(revenuData)
+    reader = csv.reader(revenuData)
+
+    header = next(reader)
+    first_row = next(reader)
+    previousRevenue = int(first_row[1])
  
     for row in reader: 
         months = months + 1
-        netProfitOrLosses = netProfitOrLosses + int(row["Profit/Losses"])
+        netProfitOrLosses = netProfitOrLosses + int(row[1])
 
-        revChange = int(row["Profit/Losses"]) - previousRevenue
-        previousRevenue = int(row["Profit/Losses"])
+
+        revChange = int(row[1]) - previousRevenue
+        previousRevenue = int(row[1])
         revChangeList = revChangeList + [revChange]
-        monthOfChange = monthOfChange + [row["Date"]]
+        monthOfChange = monthOfChange + [row[0]]
 
         if (revChange > greatestIncrease[1]): 
-            greatestIncrease[0] = row["Date"]
+            greatestIncrease[0] = row[0]
             greatestIncrease[1] = revChange
 
         if (revChange < greatestDecrease[1]): 
-            greatestDecrease[0] = row["Date"]
+            greatestDecrease[0] = row[0]
             greatestDecrease[1] = revChange
 
 revAverage = sum(revChangeList) / len(revChangeList)
